@@ -27,5 +27,12 @@ defmodule Accent.TransformerTest do
                Accent.Case.Snake
              ) == %{"hello_world" => ["item"]}
     end
+
+    test "ignore transformation if given value is not Enumerable" do
+      assert Accent.Case.convert(
+        %{"newFile" => %Plug.Upload{}},
+        Accent.Case.Snake
+      ) == %{"new_file" => %Plug.Upload{}}
+    end
   end
 end

@@ -15,14 +15,14 @@ defmodule Accent.Case do
     for {k, v} <- map, into: %{} do
       key = transformer.call(k)
 
-      if is_map(v) || is_list(v) do
+      if Enumerable.impl_for(v) do
         {key, convert(v, transformer)}
       else
         {key, v}
       end
     end
   end
-  
+
   @spec convert(list, module) :: list
   def convert(list, transformer) when is_list(list) do
     for i <- list, into: [] do
